@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Hospital Management</p>
+          <h1>Doctor Registration</h1>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="card form-card">
+          <h2>Register a Doctor</h2>
+
+          {% if message %}
+            <div class="alert {% if 'successfully' in message %}success{% else %}error{% endif %}">
+              {{ message }}
+            </div>
+          {% endif %}
+
+          <form method="POST">
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="field">
+                <label for="specialization">Specialization</label>
+                <input type="text" id="specialization" name="specialization" required />
+              </div>
+
+              <div class="field">
+                <label for="experience">Years of Experience</label>
+                <input type="number" id="experience" name="experience" min="0" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+
+              <div class="field">
+                <label for="license_number">License Number</label>
+                <input type="text" id="license_number" name="license_number" />
+              </div>
+
+              <div class="field full-width">
+                <label for="clinic_address">Clinic Address</label>
+                <textarea id="clinic_address" name="clinic_address" rows="3"></textarea>
+              </div>
+
+              <div class="field full-width">
+                <label for="availability">Availability</label>
+                <textarea id="availability" name="availability" rows="3" placeholder="e.g. Mon-Fri, 9:00 AM - 5:00 PM"></textarea>
+              </div>
+            </div>
+
+            <button type="submit">Register Doctor</button>
+          </form>
+        </section>
+
+        <aside class="card list-card">
+          <h2>Registered Doctors</h2>
+          {% if doctors %}
+            <ul class="doctor-list">
+              {% for doctor in doctors %}
+                <li>
+                  <div class="doctor-header">
+                    <strong>{{ doctor.name }}</strong>
+                    <span>{{ doctor.specialization }}</span>
+                  </div>
+                  <p>{{ doctor.experience }} years experience</p>
+                  <p>{{ doctor.email }}</p>
+                  <p>{{ doctor.phone }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="empty-state">No doctors registered yet.</p>
+          {% endif %}
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>
